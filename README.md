@@ -8,7 +8,6 @@ Tested on Ubuntu 17.04 (VPS)
 
 
 ## Install
-1. Copy script by using `apt install -y git && wget https://raw.githubusercontent.com/debihard/PPTP-VPN/master/install.sh`
-2. Run using `sudo bash install.sh`
-3. Script will ask for username and password for VPN, set them correctly
-4. Connect the VPN and Enjoy :)
+1. Copy script and run `apt install -y git && apt install -y sudo && wget https://raw.githubusercontent.com/debihard/PPTP-VPN/master/install.sh && sudo bash install.sh`
+2. Script will ask for username and password for VPN, set them correctly
+3. Connect the VPN and Enjoy :)
