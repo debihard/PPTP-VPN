@@ -54,8 +54,8 @@ fi
 clear
 
 #Automatic Adding VPN Users
-username=$(gpw 5 1)
-password=$(pwgen 9 1)
+username=$(gpw 1 5)
+password=$(pwgen 6 1)
 
 # Mannual Adding VPN Users
 #echo "Set username:"
