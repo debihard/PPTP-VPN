@@ -10,8 +10,10 @@ sudo apt-get install pptpd -y
 
 # edit DNS
 echo "Setting Google DNS"
-sudo echo "ms-dns 8.8.8.8" >> /etc/ppp/pptpd-options
-sudo echo "ms-dns 8.8.4.4" >> /etc/ppp/pptpd-options
+sudo echo "ms-dns 208.67.220.220" >> /etc/ppp/pptpd-options
+sudo echo "ms-dns 208.67.222.222" >> /etc/ppp/pptpd-options
+
+
 
 # Edit PPTP Configuration
 echo "Editing PPTP Configuration"
