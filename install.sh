@@ -1,5 +1,11 @@
 #!/bin/bash
 
+apt -y install pwgen
+apt -y install gpw
+apt -y install sudo
+
+
+
 networkinterface=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}')
 
 wan=$(ip -f inet -o addr show $networkinterface|cut -d\  -f 7 | cut -d/ -f 1)
@@ -47,14 +53,20 @@ fi
 
 clear
 
-# Adding VPN Users
-echo "Set username:"
-read username
-echo "Set Password:"
-read password
+#Automatic Adding VPN Users
+username=$(gpw 5 1)
+password=$(pwgen 9 1)
+
+# Mannual Adding VPN Users
+#echo "Set username:"
+#read username
+#echo "Set Password:"
+#read password
+
 sudo echo "$username * $password *" >> /etc/ppp/chap-secrets
 
 # Restarting Service 
 sudo service pptpd restart
 
 echo "All done!"
+echo "Save your connect - $username : $password !"
