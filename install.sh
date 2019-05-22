@@ -1,5 +1,8 @@
 #!/bin/bash
-wan=$(ip -f inet -o addr show eth0|cut -d\  -f 7 | cut -d/ -f 1)
+
+networkinterface=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}')
+
+wan=$(ip -f inet -o addr show $networkinterface|cut -d\  -f 7 | cut -d/ -f 1)
 wlan=$(ip -f inet -o addr show wlan0|cut -d\  -f 7 | cut -d/ -f 1)
 ppp1=$(/sbin/ip route | awk '/default/ { print $3 }')
 ip=$(dig +short myip.opendns.com @resolver1.opendns.com)
@@ -36,10 +39,10 @@ if [ -z "$wan" ]
 		$("sudo iptables -I INPUT -s $ip/8 -i ppp0 -j ACCEPT")
 		sudo iptables --append FORWARD --in-interface wlan0 -j ACCEPT
 	else
-		sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE && iptables-save
+		sudo iptables -t nat -A POSTROUTING -o $networkinterface -j MASQUERADE && iptables-save
 		sudo iptables --table nat --append POSTROUTING --out-interface ppp0 -j MASQUERADE
 		$("sudo iptables -I INPUT -s $ip/8 -i ppp0 -j ACCEPT")
-		sudo iptables --append FORWARD --in-interface eth0 -j ACCEPT
+		sudo iptables --append FORWARD --in-interface $networkinterface -j ACCEPT
 fi
 
 clear
